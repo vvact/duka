@@ -82,13 +82,6 @@ WSGI_APPLICATION = 'soko.wsgi.application'
 
 
 
-# DATABASES = {
-#     'default': dj_database_url.config(
-#         default='sqlite:///db.sqlite3',  # fallback for local dev
-#         conn_max_age=600,                # recommended for production
-#         ssl_require=False                # set to True if using Render PostgreSQL with SSL
-#     )
-# }
 
 # Database
 DATABASES = {
