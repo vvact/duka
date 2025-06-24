@@ -20,6 +20,9 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 # Allowed Hosts
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
+print("ALLOWED_HOSTS:", ALLOWED_HOSTS)
+
+
 
 # Application definition
 
@@ -154,6 +157,10 @@ MPESA_CONSUMER_SECRET = config("MPESA_CONSUMER_SECRET")
 MPESA_SHORTCODE = config("MPESA_SHORTCODE")
 MPESA_PASSKEY = config("MPESA_PASSKEY")
 MPESA_CALLBACK_URL = config("MPESA_CALLBACK_URL")
+
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 
 
 
