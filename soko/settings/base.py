@@ -3,7 +3,7 @@ import os
 import dj_database_url
 from pathlib import Path
 from decouple import config, Csv
-
+import logging.config
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -15,13 +15,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Secret Key & Debug
 SECRET_KEY = config('SECRET_KEY')
-DEBUG = config('DEBUG', default=False, cast=bool)
-
-# Allowed Hosts
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
-
-print("ALLOWED_HOSTS:", ALLOWED_HOSTS)
-
 
 
 # Application definition
@@ -72,26 +65,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'soko.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-
-
-
-# Database
-DATABASES = {
-    'default': dj_database_url.config(
-        default=config('DATABASE_URL')
-    )
-}
 
 
 # Password validation
@@ -148,9 +121,7 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-
-
-# M-Pesa Configuration
+# M-Pesa config
 MPESA_ENVIRONMENT = config("MPESA_ENVIRONMENT", default="sandbox")
 MPESA_CONSUMER_KEY = config("MPESA_CONSUMER_KEY")
 MPESA_CONSUMER_SECRET = config("MPESA_CONSUMER_SECRET")
@@ -159,12 +130,10 @@ MPESA_PASSKEY = config("MPESA_PASSKEY")
 MPESA_CALLBACK_URL = config("MPESA_CALLBACK_URL")
 
 
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 
 
-import os
-import logging.config
+# Logging
 
 LOGGING_DIR = os.path.join(BASE_DIR, 'logs')
 os.makedirs(LOGGING_DIR, exist_ok=True)

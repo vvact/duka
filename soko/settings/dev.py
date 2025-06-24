@@ -1,15 +1,9 @@
 from .base import *
 
-DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = True
 
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
-# Allowed Hosts
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
-
-
-# Database
 DATABASES = {
-    'default': dj_database_url.config(
-        default=config('DATABASE_URL')
-    )
+    'default': dj_database_url.config(default='sqlite:///db.sqlite3')
 }
