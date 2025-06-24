@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5 text-center">
+  <h4>STK Push Sent</h4>
+  <p>Please confirm payment on your phone for order #{{ order.id }}.</p>
+</div>
+<script>
+  setTimeout(function () {
+    window.location.href = "{% url 'checkout_success' order.id %}";
+  }, 5000);
+</script>
+{% endblock %}

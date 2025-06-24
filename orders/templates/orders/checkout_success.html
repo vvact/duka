@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5">
+  <h2>Thank you, {{ order.name }}!</h2>
+  <p>Your order #{{ order.id }} has been placed.</p>
+  <p>Status: {{ order.get_status_display }}</p>
+
+  <div class="mt-4">
+    <a href="{% url 'product_list' %}" class="btn btn-primary me-2">Continue Shopping</a>
+    <a href="{% url 'my_orders' %}" class="btn btn-outline-secondary">View My Orders</a>
+  </div>
+</div>
+{% endblock %}

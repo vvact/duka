@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5">
+  <h2 class="mb-4">Checkout</h2>
+
+  <form method="post" class="mb-4">
+    {% csrf_token %}
+
+    <div class="row">
+      <!-- Left: Checkout Form -->
+      <div class="col-md-6">
+        <h4>Billing Information</h4>
+        {{ form.non_field_errors }}
+        <div class="mb-3">
+          {{ form.name.label_tag }} {{ form.name }}
+        </div>
+        <div class="mb-3">
+          {{ form.phone.label_tag }} {{ form.phone }}
+        </div>
+        <div class="mb-3">
+          {{ form.address.label_tag }} {{ form.address }}
+        </div>
+
+        <div class="mb-3">
+          <strong>{{ form.payment_method.label }}</strong><br>
+          {% for radio in form.payment_method %}
+            <div class="form-check">
+              {{ radio.tag }} {{ radio.choice_label }}
+            </div>
+          {% endfor %}
+        </div>
+
+        <!-- M-Pesa Sub-options (Shown only if mpesa selected) -->
+        <div class="mb-3" id="mpesa-options" style="display: none;">
+          <strong>{{ form.mpesa_option.label }}</strong><br>
+          {% for radio in form.mpesa_option %}
+            <div class="form-check">
+              {{ radio.tag }} {{ radio.choice_label }}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Right: Order Summary -->
+      <div class="col-md-6">
+        <h4>Order Summary</h4>
+        <ul class="list-group mb-3">
+          {% for item in cart %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <div>{{ item.product.name }} (x{{ item.quantity }})</div>
+              <div>KSh {{ item.total_price }}</div>
+            </li>
+          {% endfor %}
+        </ul>
+        <h5 class="text-end">Total: <strong>KSh {{ cart.get_total_price }}</strong></h5>
+        <button type="submit" class="btn btn-success btn-lg w-100 mt-3">Place Order</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<script>
+  const paymentRadios = document.querySelectorAll('input[name="payment_method"]');
+  const mpesaOptions = document.getElementById('mpesa-options');
+
+  function toggleMpesaOptions() {
+    const selected = document.querySelector('input[name="payment_method"]:checked');
+    if (selected && selected.value === 'mpesa') {
+      mpesaOptions.style.display = 'block';
+    } else {
+      mpesaOptions.style.display = 'none';
+    }
+  }
+
+  paymentRadios.forEach(radio => {
+    radio.addEventListener('change', toggleMpesaOptions);
+  });
+
+  // On page load
+  toggleMpesaOptions();
+</script>
+{% endblock %}

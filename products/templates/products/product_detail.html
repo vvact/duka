@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- Breadcrumbs -->
+<nav aria-label="breadcrumb" class="mb-3">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'product_list' %}">Products</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{ product.name }}</li>
+  </ol>
+</nav>
+
+<div class="container mt-5">
+  <div class="row">
+    <!-- Product Image -->
+    <div class="col-md-6 mb-4">
+      <figure>
+        {% if product.main_image and product.main_image.image %}
+          <img src="{{ product.main_image.image.url }}" class="img-fluid rounded shadow w-100" alt="{{ product.name }}">
+        {% else %}
+          <img src="https://via.placeholder.com/600x400?text=No+Image" class="img-fluid rounded shadow w-100" alt="No image available">
+        {% endif %}
+      </figure>
+    </div>
+
+    <!-- Product Details -->
+    <div class="col-md-6">
+      <h2 class="mb-3">{{ product.name }}</h2>
+      <p class="text-muted">{{ product.description }}</p>
+
+      {% if attribute_map %}
+      <form method="POST" action="">
+        {% csrf_token %}
+
+        {% for attr_name, values in attribute_map.items %}
+          <div class="mb-3">
+            <label for="{{ attr_name }}" class="form-label">{{ attr_name }}</label>
+            <select name="{{ attr_name }}" class="form-select" required>
+              <option value="">Select {{ attr_name }}</option>
+              {% for val in values %}
+                <option value="{{ val }}">{{ val }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        {% endfor %}
+
+        <!-- Placeholder for dynamic price; you can enhance with JS later -->
+        <div class="mb-3">
+          <strong class="text-primary">Price will update based on selection</strong>
+        </div>
+
+        <button type="submit" class="btn btn-success">Add to Cart</button>
+      </form>
+
+      {% else %}
+        <h4 class="text-primary">KSh {{ product.price }}</h4>
+        <a href="{% url 'cart:add_to_cart' product.id %}" class="btn btn-success mt-3">Add to Cart</a>
+      {% endif %}
+
+      <!-- Back Button -->
+      <div class="mt-4">
+        <a href="{% url 'product_list' %}" class="btn btn-outline-secondary">
+          &larr; Back to Products
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Optional Gallery -->
+  {% if product.images.count > 1 %}
+  <div class="row mt-5">
+    <h5>More Images</h5>
+    {% for img in product.images.all %}
+      {% if not img.is_main %}
+      <div class="col-4 col-md-3 col-lg-2 mb-3">
+        <img src="{{ img.image.url }}" class="img-thumbnail" alt="{{ img.alt_text }}">
+      </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+  {% endif %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5">
+
+  <!-- Breadcrumb Navigation -->
+  <nav aria-label="breadcrumb" class="mb-3">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+      {% if category %}
+        <li class="breadcrumb-item active" aria-current="page">{{ category.name }}</li>
+      {% else %}
+        <li class="breadcrumb-item active" aria-current="page">All Products</li>
+      {% endif %}
+    </ol>
+  </nav>
+
+  <!-- Heading -->
+  <h2 class="mb-3">
+    {% if category %}Products in "{{ category.name }}"{% else %}All Products{% endif %}
+  </h2>
+
+  <!-- Active Filters Display -->
+  {% if query or min_price or max_price or category %}
+  <div class="alert alert-info d-flex justify-content-between align-items-center">
+    <div>
+      <strong>Filters:</strong>
+      {% if category %}<span class="badge bg-primary me-1">{{ category.name }}</span>{% endif %}
+      {% if query %}<span class="badge bg-secondary me-1">Search: "{{ query }}"</span>{% endif %}
+      {% if min_price %}<span class="badge bg-success me-1">Min: KSh {{ min_price }}</span>{% endif %}
+      {% if max_price %}<span class="badge bg-danger me-1">Max: KSh {{ max_price }}</span>{% endif %}
+    </div>
+    <a href="{% url 'product_list' %}" class="btn btn-sm btn-outline-dark">Clear Filters</a>
+  </div>
+  {% endif %}
+
+  <div class="row">
+    <!-- Sidebar: Categories -->
+    <div class="col-md-3 mb-4">
+      <div class="list-group mb-4">
+        <a href="{% url 'product_list' %}" class="list-group-item {% if not category %}active{% endif %}">
+          All Categories
+        </a>
+        {% for cat in all_categories %}
+        <a href="{% url 'products_by_category' cat.slug %}"
+           class="list-group-item {% if category.slug == cat.slug %}active{% endif %}">
+           {{ cat.name }}
+        </a>
+        {% endfor %}
+      </div>
+
+      <!-- Price Filter Form -->
+      <form method="get" class="border p-3 rounded bg-light">
+        <h6 class="mb-3">Filter by Price</h6>
+        <div class="mb-2">
+          <label for="min_price" class="form-label">Min Price (KSh)</label>
+          <input type="number" name="min_price" id="min_price" class="form-control"
+                 value="{{ min_price }}" placeholder="e.g. 1000">
+        </div>
+        <div class="mb-3">
+          <label for="max_price" class="form-label">Max Price (KSh)</label>
+          <input type="number" name="max_price" id="max_price" class="form-control"
+                 value="{{ max_price }}" placeholder="e.g. 5000">
+        </div>
+        <button type="submit" class="btn btn-outline-primary w-100">Apply</button>
+      </form>
+    </div>
+
+    <!-- Main: Product Cards -->
+    <div class="col-md-9">
+      <div class="row">
+        {% if products %}
+          {% for product in products %}
+          <div class="col-md-4 mb-4">
+            <a href="{{ product.get_absolute_url }}" class="text-decoration-none text-dark">
+              <div class="card h-100 position-relative">
+
+                {% if product.main_image and product.main_image.image %}
+                  <img src="{{ product.main_image.image.url }}" class="card-img-top" loading="lazy" style="height: 200px; object-fit: cover;" alt="{{ product.name }}">
+                {% else %}
+                  <img src="https://via.placeholder.com/300x200?text=No+Image" class="card-img-top" loading="lazy" style="height: 200px; object-fit: cover;" alt="No image">
+                {% endif %}
+
+                <div class="card-body d-flex flex-column">
+                  <h5 class="card-title">{{ product.name }}</h5>
+                  <p class="text-muted">KSh {{ product.price }}</p>
+                  <span class="stretched-link"></span>
+                </div>
+              </div>
+            </a>
+          </div>
+          {% endfor %}
+        {% else %}
+          <div class="col-12">
+            <div class="alert alert-warning">No products found for your filters.</div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
