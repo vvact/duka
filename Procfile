@@ -1,1 +1,1 @@
-web: gunicorn soko.wsgi
+web: gunicorn soko.wsgi:application
