@@ -7,6 +7,7 @@ cffi==1.17.1
 charset-normalizer==3.4.2
 cryptography==45.0.3
 defusedxml==0.7.1
+dj-database-url==3.0.0
 Django==5.2.1
 django-allauth==65.9.0
 django-categories==2.0.0
@@ -34,10 +35,12 @@ djangorestframework==3.16.0
 draftjs_exporter==5.1.0
 et_xmlfile==2.0.0
 filetype==1.2.0
+gunicorn==23.0.0
 idna==3.10
 laces==0.1.2
 oauthlib==3.2.2
 openpyxl==3.1.5
+packaging==25.0
 pillow==11.2.1
 pillow_heif==0.21.0
 polib==1.2.0
@@ -62,4 +65,5 @@ urllib3==2.4.0
 wagtail==7.0
 wagtail-localize==1.12.1
 webencodings==0.5.1
+whitenoise==6.9.0
 Willow==1.10.0

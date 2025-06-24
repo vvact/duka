@@ -1,0 +1,92 @@
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Django
+*.log
+*.pot
+*.pyc
+*.pyo
+*.sqlite3
+*.env
+db.sqlite3
+.env.*
+media/
+staticfiles/
+local_settings.py
+.envrc
+venv/
+ENV/
+env/
+instance/
+.webassets-cache
+
+# VS Code
+.vscode/
+
+# PyCharm
+.idea/
+*.iml
+
+# System files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Unit test / coverage
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Migrations
+**/migrations/*.py
+!**/migrations/__init__.py
+
+# Node modules (if any JS is used)
+node_modules/
+
+# Render deploy cache
+render-build/
+
+# Firebase cache or config
+.firebase/
+
+# Secret keys
+secrets.json
+firebase-adminsdk.json
+
+# OS-specific
+*.swp
+*.swo
+*.bak
+*.tmp
