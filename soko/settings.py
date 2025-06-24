@@ -1,6 +1,8 @@
 
 import os
+import dj_database_url
 from pathlib import Path
+
 
 from decouple import config
 
@@ -44,6 +46,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'soko.urls'
@@ -77,6 +80,11 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
+}
+
+# 3. Use database from Render
+DATABASES = {
+    'default': dj_database_url.config(default='sqlite:///db.sqlite3')
 }
 
 
