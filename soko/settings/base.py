@@ -7,7 +7,7 @@ import logging.config
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'cart',
     'orders',
     'payments',
+    'core',
 ]
 
 MIDDLEWARE = [
@@ -110,9 +111,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # used in production
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 
 # Default primary key field type
