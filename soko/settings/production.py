@@ -5,11 +5,6 @@ import dj_database_url
 DEBUG = config('DEBUG', default=False, cast=bool)
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=lambda v: [s.strip() for s in v.split(',')])
 
-# ✅ Cloudinary apps must be added
-INSTALLED_APPS += [
-    'cloudinary',
-    'cloudinary_storage',
-]
 
 # ✅ Cloudinary storage settings
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
